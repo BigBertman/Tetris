@@ -5,16 +5,12 @@ using UnityEngine;
 public class Group : MonoBehaviour
 {
 
-    float lastFall = 0;
+    public float lastFall = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (isValidGridPos())
-        {
-            Debug.Log("Game Over");
-            Destroy(gameObject);
-        }
+
     }
 
     // Update is called once per frame
@@ -36,7 +32,7 @@ public class Group : MonoBehaviour
         }
 
         // Move Right
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.position += new Vector3(1.0f, 0.0f, 0.0f);
 
@@ -51,7 +47,7 @@ public class Group : MonoBehaviour
         }
 
         // Rotate
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             transform.Rotate(0.0f, 0.0f, -90.0f);
 
@@ -66,7 +62,7 @@ public class Group : MonoBehaviour
         }
 
         // Move Downwards and Fall
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time - lastFall >= 1.0f)
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             transform.position += new Vector3(0.0f, -1.0f, 0.0f);
 
@@ -86,7 +82,30 @@ public class Group : MonoBehaviour
             }
         }
 
-        lastFall = Time.time;
+        if (Time.deltaTime * lastFall >= 3)
+        {
+            transform.position += new Vector3(0.0f, -1.0f, 0.0f);
+
+            if (isValidGridPos())
+            {
+                updateGrid();
+                lastFall = 0;
+            }
+            else
+            {
+                transform.position += new Vector3(0.0f, 1.0f, 0.0f);
+
+                Playfield.deleteAllFullRows();
+
+                FindObjectOfType<Spawner>().SpawnRandomGroup();
+
+                enabled = false;
+            }
+        }
+
+
+
+        lastFall++;
     }
 
     bool isValidGridPos()
