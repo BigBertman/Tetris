@@ -9,24 +9,12 @@ public class Playfield : MonoBehaviour
     public static int h = 20;
     public static Transform[,] grid = new Transform[w, h];
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public static Vector2 roundVec2(Vector2 v)
+    public static Vector2 RoundVec2(Vector2 v)
     {
         return new Vector2(Mathf.Round(v.x), Mathf.Round(v.y));
     }
 
-    public static bool insideBorder(Vector2 pos)
+    public static bool InsideBorder(Vector2 pos)
     {
         bool result = false;
 
@@ -38,7 +26,7 @@ public class Playfield : MonoBehaviour
         return result;
     }
 
-    public static void deleteRow(int y)
+    public static void DeleteRow(int y)
     {
         for (int x = 0; x < w; x++)
         {
@@ -47,7 +35,7 @@ public class Playfield : MonoBehaviour
         }
     }
 
-    public static void decreaseRow(int y)
+    public static void DecreaseRow(int y)
     {
         for (int x = 0; x < w; x++)
         {
@@ -63,15 +51,15 @@ public class Playfield : MonoBehaviour
         }
     }
 
-    public static void decreaseAboveRows(int y)
+    public static void DecreaseAboveRows(int y)
     {
         for (int i = y; i < h; i++)
         {
-            decreaseRow(i);
+            DecreaseRow(i);
         }
     }
 
-    public static bool isRowFull(int y)
+    public static bool IsRowFull(int y)
     {
         for (int x = 0; x < w; x++)
         {
@@ -83,14 +71,14 @@ public class Playfield : MonoBehaviour
         return true;
     }
 
-    public static void deleteAllFullRows()
+    public static void DeleteAllFullRows()
     {
         for (int y = 0; y < h; y++)
         {
-            if (isRowFull(y))
+            if (IsRowFull(y))
             {
-                deleteRow(y);
-                decreaseAboveRows(y + 1);
+                DeleteRow(y);
+                DecreaseAboveRows(y + 1);
                 --y;
             }
         }

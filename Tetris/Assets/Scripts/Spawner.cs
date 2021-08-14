@@ -13,17 +13,10 @@ public class Spawner : MonoBehaviour
         SpawnRandomGroup();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SpawnRandomGroup()
     {
         int i = Random.Range(0, groups.Length);
 
         Instantiate(groups[i], transform.position, Quaternion.identity);
     }
-
 }

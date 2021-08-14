@@ -7,12 +7,6 @@ public class Group : MonoBehaviour
 
     public float lastFall = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -21,9 +15,9 @@ public class Group : MonoBehaviour
         {
             transform.position += new Vector3(-1.0f, 0.0f, 0.0f);
 
-            if (isValidGridPos())
+            if (IsValidGridPos())
             {
-                updateGrid();
+                UpdateGrid();
             }
             else
             {
@@ -36,9 +30,9 @@ public class Group : MonoBehaviour
         {
             transform.position += new Vector3(1.0f, 0.0f, 0.0f);
 
-            if (isValidGridPos())
+            if (IsValidGridPos())
             {
-                updateGrid();
+                UpdateGrid();
             }
             else
             {
@@ -51,9 +45,9 @@ public class Group : MonoBehaviour
         {
             transform.Rotate(0.0f, 0.0f, -90.0f);
 
-            if (isValidGridPos())
+            if (IsValidGridPos())
             {
-                updateGrid();
+                UpdateGrid();
             }
             else
             {
@@ -66,15 +60,15 @@ public class Group : MonoBehaviour
         {
             transform.position += new Vector3(0.0f, -1.0f, 0.0f);
 
-            if (isValidGridPos())
+            if (IsValidGridPos())
             {
-                updateGrid();
+                UpdateGrid();
             }
             else
             {
                 transform.position += new Vector3(0.0f, 1.0f, 0.0f);
 
-                Playfield.deleteAllFullRows();
+                Playfield.DeleteAllFullRows();
 
                 FindObjectOfType<Spawner>().SpawnRandomGroup();
 
@@ -86,16 +80,16 @@ public class Group : MonoBehaviour
         {
             transform.position += new Vector3(0.0f, -1.0f, 0.0f);
 
-            if (isValidGridPos())
+            if (IsValidGridPos())
             {
-                updateGrid();
+                UpdateGrid();
                 lastFall = 0;
             }
             else
             {
                 transform.position += new Vector3(0.0f, 1.0f, 0.0f);
 
-                Playfield.deleteAllFullRows();
+                Playfield.DeleteAllFullRows();
 
                 FindObjectOfType<Spawner>().SpawnRandomGroup();
 
@@ -108,14 +102,14 @@ public class Group : MonoBehaviour
         lastFall++;
     }
 
-    bool isValidGridPos()
+    bool IsValidGridPos()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            Vector2 v = Playfield.roundVec2(transform.GetChild(i).position);
+            Vector2 v = Playfield.RoundVec2(transform.GetChild(i).position);
 
             // If Not inside Boarder...
-            if (!Playfield.insideBorder(v))
+            if (!Playfield.InsideBorder(v))
             {
                 return false;
             }
@@ -130,7 +124,7 @@ public class Group : MonoBehaviour
         return true;
     }
 
-    void updateGrid()
+    void UpdateGrid()
     {
         // Remove old children from grid
         {
@@ -153,7 +147,7 @@ public class Group : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                Vector2 v = Playfield.roundVec2(transform.GetChild(i).position);
+                Vector2 v = Playfield.RoundVec2(transform.GetChild(i).position);
                 Playfield.grid[(int)v.x, (int)v.y] = transform.GetChild(i);
             }
         }
