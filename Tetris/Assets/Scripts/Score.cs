@@ -24,19 +24,19 @@ public class Score : MonoBehaviour
 
     public void UpdateScore()
     {
-        if (Playfield.cons <= 1)
+        if (Playfield.rows <= 1)
         {
             GameManager.Instance.scoreValue = GameManager.Instance.scoreValue + 40;
         }
-        else if (Playfield.cons == 2)
+        else if (Playfield.rows == 2)
         {
             GameManager.Instance.scoreValue = GameManager.Instance.scoreValue + 100;
         }
-        else if (Playfield.cons == 3)
+        else if (Playfield.rows == 3)
         {
             GameManager.Instance.scoreValue = GameManager.Instance.scoreValue + 300;
         }
-        else if (Playfield.cons == 4)
+        else if (Playfield.rows == 4)
         {
             GameManager.Instance.scoreValue = GameManager.Instance.scoreValue + 1200;
         }

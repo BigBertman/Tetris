@@ -8,7 +8,7 @@ public class Playfield : MonoBehaviour
     public static int w = 10;
     public static int h = 20;
     public static Transform[,] grid = new Transform[w, h];
-    public static int cons = 0;
+    public static int rows = 0;
     public static bool prev = false;
 
     public static Vector2 RoundVec2(Vector2 v)
@@ -77,7 +77,7 @@ public class Playfield : MonoBehaviour
 
     public static void DeleteAllFullRows()
     {
-        cons = 0;
+        rows = 0;
         prev = false;
 
         for (int y = 0; y < h; y++)
@@ -90,11 +90,11 @@ public class Playfield : MonoBehaviour
 
                 if (prev)
                 {
-                    cons++;
+                    rows++;
                 }
                 else
                 {
-                    cons = 1;
+                    rows = 1;
                 }
 
                 GameObject score = GameObject.FindGameObjectWithTag("Score");
