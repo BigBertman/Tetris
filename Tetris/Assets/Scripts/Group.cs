@@ -1,11 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Group : MonoBehaviour
 {
 
     public float lastFall = 0;
+    public float distance = 0.5f;
+    void Start()
+    {
+        // If Default position is not valid...
+        if (!IsValidGridPos())
+        {
+            // Display Game Over
+            GameObject gameOverText = GameObject.FindGameObjectWithTag("GameOver");
+            gameOverText.GetComponent<Text>().text = "Game Over";
+
+            Destroy(gameObject);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -96,8 +110,6 @@ public class Group : MonoBehaviour
                 enabled = false;
             }
         }
-
-
 
         lastFall++;
     }

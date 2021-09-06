@@ -8,6 +8,8 @@ public class Playfield : MonoBehaviour
     public static int w = 10;
     public static int h = 20;
     public static Transform[,] grid = new Transform[w, h];
+    public static int cons = 0;
+    public static bool prev = false;
 
     public static Vector2 RoundVec2(Vector2 v)
     {
@@ -65,14 +67,19 @@ public class Playfield : MonoBehaviour
         {
             if (grid[x, y] == null)
             {
+                prev = false;
                 return false;
             }
         }
+        prev = true;
         return true;
     }
 
     public static void DeleteAllFullRows()
     {
+        cons = 0;
+        prev = false;
+
         for (int y = 0; y < h; y++)
         {
             if (IsRowFull(y))
@@ -80,6 +87,19 @@ public class Playfield : MonoBehaviour
                 DeleteRow(y);
                 DecreaseAboveRows(y + 1);
                 --y;
+
+                if (prev)
+                {
+                    cons++;
+                }
+                else
+                {
+                    cons = 1;
+                }
+
+                GameObject score = GameObject.FindGameObjectWithTag("Score");
+                score.GetComponent<Score>().UpdateScore();
+
             }
         }
     }
